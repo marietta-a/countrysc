@@ -10,16 +10,16 @@ namespace GeoLocation.Data;
 /// <summary>
 /// Service to load and manage the full dataset of countries from the embedded JSON resource.
 /// </summary>
-public class CountryPickerService
+public class GeoLocationService
 {
     private readonly List<Country> _countries = [];
 
-    public CountryPickerService()
+    public GeoLocationService()
     {
         try
         {
             var assembly = Assembly.GetExecutingAssembly();
-            
+
             // Note: Resource name structure is Namespace.FileName.br
             using var stream = assembly.GetManifestResourceStream("GeoLocation.Data.countries.json.br");
             if (stream == null)
