@@ -4,10 +4,30 @@
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Title>GeoLocation.Data</Title>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <FileVersion></FileVersion>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <Description>A lightweight .NET library providing a complete, offline dataset of countries, states/provinces, and cities — with ISO country codes, flag emojis, and international dial codes derived on the fly. No API calls, no network dependency;</Description>
+    <Copyright></Copyright>
+    <PackageProjectUrl>https://github.com/marietta-a/geolocation-data</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/marietta-a/geolocation-data</RepositoryUrl>
+    <PackageTags>v1.0.0</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="countries.json.br" Condition="Exists('countries.json.br')" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
