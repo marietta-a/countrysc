@@ -1,0 +1,112 @@
+@page "/"
+@using GeoLocation.Data
+@inject GeoLocationService GeoService
+
+<PageTitle>GeoLocation.Data Test</PageTitle>
+
+<h1>GeoLocation.Data Test</h1>
+<p>Pick a country, then a state, then a city to exercise the cascading dropdowns.</p>
+
+<div class="row" style="max-width: 900px;">
+    <div class="col-md-4 mb-3">
+        <label for="country" class="form-label"><strong>Country</strong></label>
+        <select id="country" class="form-select" @onchange="OnCountryChanged">
+            <option value="">-- Select a country --</option>
+            @foreach (var country in _countries)
+            {
+                <option value="@country.CountryCode" selected="@(country.CountryCode == _selectedCountryCode)">
+                    @country.FlagEmoji @country.Name
+                </option>
+            }
+        </select>
+    </div>
+
+    <div class="col-md-4 mb-3">
+        <label for="state" class="form-label"><strong>State / Province</strong></label>
+        <select id="state" class="form-select" @onchange="OnStateChanged" disabled="@(string.IsNullOrEmpty(_selectedCountryCode))">
+            <option value="">-- Select a state --</option>
+            @foreach (var state in _states)
+            {
+                <option value="@state.Id" selected="@(state.Id == _selectedStateId)">@state.Name</option>
+            }
+        </select>
+    </div>
+
+    <div class="col-md-4 mb-3">
+        <label for="city" class="form-label"><strong>City</strong></label>
+        <select id="city" class="form-select" @onchange="OnCityChanged" disabled="@(_selectedStateId == null)">
+            <option value="">-- Select a city --</option>
+            @foreach (var city in _cities)
+            {
+                <option value="@city.Id" selected="@(city.Id == _selectedCityId)">@city.Name</option>
+            }
+        </select>
+    </div>
+</div>
+
+<hr />
+
+<h4>Selection</h4>
+<ul>
+    <li><strong>Country:</strong> @(_selectedCountry?.Name ?? "(none)") @(_selectedCountry != null ? $"[{_selectedCountry.CountryCode}]" : "")</li>
+    <li><strong>State:</strong> @(_selectedState?.Name ?? "(none)")</li>
+    <li><strong>City:</strong> @(_selectedCity?.Name ?? "(none)")</li>
+</ul>
+
+@code {
+    private List<Country> _countries = [];
+    private List<State> _states = [];
+    private List<City> _cities = [];
+
+    private string? _selectedCountryCode;
+    private int? _selectedStateId;
+    private int? _selectedCityId;
+
+    private Country? _selectedCountry;
+    private State? _selectedState;
+    private City? _selectedCity;
+
+    protected override void OnInitialized()
+    {
+        _countries = GeoService.GetAll().ToList();
+    }
+
+    private void OnCountryChanged(ChangeEventArgs e)
+    {
+        _selectedCountryCode = e.Value?.ToString();
+        _selectedCountry = string.IsNullOrEmpty(_selectedCountryCode)
+            ? null
+            : GeoService.GetByCountryCode(_selectedCountryCode);
+
+        _states = GeoService.GetStates(_selectedCountryCode).ToList();
+
+        _selectedStateId = null;
+        _selectedState = null;
+        _cities = [];
+        _selectedCityId = null;
+        _selectedCity = null;
+    }
+
+    private void OnStateChanged(ChangeEventArgs e)
+    {
+        var value = e.Value?.ToString();
+        _selectedStateId = int.TryParse(value, out var stateId) ? stateId : null;
+        _selectedState = _selectedStateId == null
+            ? null
+            : _states.FirstOrDefault(s => s.Id == _selectedStateId);
+
+        _cities = GeoService.GetCities(_selectedCountryCode, _selectedStateId).ToList();
+
+        _selectedCityId = null;
+        _selectedCity = null;
+    }
+
+    private void OnCityChanged(ChangeEventArgs e)
+    {
+        var value = e.Value?.ToString();
+        _selectedCityId = int.TryParse(value, out var cityId) ? cityId : null;
+        _selectedCity = _selectedCityId == null
+            ? null
+            : _cities.FirstOrDefault(c => c.Id == _selectedCityId);
+    }
+}
