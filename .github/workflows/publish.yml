@@ -41,13 +41,13 @@ jobs:
       run: dotnet restore
 
     - name: Build Project
-      run: dotnet build CountryPicker.Blazor/CountryPicker.Blazor.csproj --configuration Release --no-restore
+      run: dotnet build src/GeoLocation.Data/GeoLocation.Data.csproj --configuration Release --no-restore
 
-    # - name: Run Unit Tests
-    #   run: dotnet test --configuration Release --no-build --verbosity normal
+    - name: Run Unit Tests
+      run: dotnet test test/GeoLocation.Data.Tests/GeoLocation.Data.Tests.csproj --configuration Release --verbosity normal
 
     - name: Pack NuGet Package
-      run: dotnet pack CountryPicker.Blazor/CountryPicker.Blazor.csproj --configuration Release --no-build --output ./nupkg
+      run: dotnet pack src/GeoLocation.Data/GeoLocation.Data.csproj --configuration Release --no-build --output ./nupkg
 
     - name: NuGet Login
       if: |
