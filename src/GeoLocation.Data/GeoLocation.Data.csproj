@@ -14,6 +14,8 @@
     <PackageProjectUrl>https://github.com/marietta-a/geolocation-data</PackageProjectUrl>
     <RepositoryUrl>https://github.com/marietta-a/geolocation-data</RepositoryUrl>
     <PackageTags>countries; states; cities; country code; phone code</PackageTags>
+    <Version>1.0.1</Version>
+    <Authors>Marietta</Authors>
   </PropertyGroup>
 
   <ItemGroup>
