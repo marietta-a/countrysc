@@ -12,7 +12,7 @@
     <Copyright></Copyright>
     <PackageProjectUrl>https://github.com/marietta-a/geolocation-data</PackageProjectUrl>
     <RepositoryUrl>https://github.com/marietta-a/geolocation-data</RepositoryUrl>
-    <PackageTags>v1.0.0</PackageTags>
+    <PackageTags>countries; states; cities; country code; phone code</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,7 +24,10 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
-    <None Include="..\..\README.md">
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>

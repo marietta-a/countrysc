@@ -16,6 +16,11 @@ public class GeoLocationService
 
     public GeoLocationService()
     {
+        LoadCountries();
+    }
+
+    private void LoadCountries()
+    {
         try
         {
             var assembly = Assembly.GetExecutingAssembly();
