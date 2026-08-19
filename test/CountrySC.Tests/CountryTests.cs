@@ -78,4 +78,24 @@ public class CountryTests
 
         Assert.Empty(country.FlagSvg);
     }
+
+    [Fact]
+    public void CurrencyProperties_ReturnCorrectValue_ForKnownCountry()
+    {
+        var country = new Country { Name = "United States", EmojiU = "U+1F1FA U+1F1F8" };
+
+        Assert.Equal("United States Dollar", country.Currency);
+        Assert.Equal("USD", country.Iso4217);
+        Assert.Equal("$", country.Symbol);
+    }
+
+    [Fact]
+    public void CurrencyProperties_ReturnEmpty_WhenCountryCodeCannotBeDerived()
+    {
+        var country = new Country { Name = "Unknown" };
+
+        Assert.Empty(country.Currency);
+        Assert.Empty(country.Iso4217);
+        Assert.Empty(country.Symbol);
+    }
 }

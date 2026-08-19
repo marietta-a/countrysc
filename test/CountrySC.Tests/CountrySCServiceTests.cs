@@ -203,4 +203,30 @@ public class CountrySCServiceTests
     {
         Assert.Empty(_service.GetFlagSvg(code));
     }
+
+    [Theory]
+    [InlineData("US", "United States Dollar", "USD", "$")]
+    [InlineData("us", "United States Dollar", "USD", "$")]
+    [InlineData("GR", "Euro", "EUR", "€")]
+    [InlineData("GB", "Pound Sterling", "GBP", "£")]
+    [InlineData("JP", "Japanese Yen", "JPY", "¥")]
+    public void GetCurrency_ReturnsCorrectCurrency_ForValidCountry(string code, string expectedName, string expectedIso, string expectedSymbol)
+    {
+        var currency = _service.GetCurrency(code);
+
+        Assert.NotNull(currency);
+        Assert.Equal(expectedName, currency!.Currency);
+        Assert.Equal(expectedIso, currency.Iso4217);
+        Assert.Equal(expectedSymbol, currency.Symbol);
+    }
+
+    [Theory]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData("   ")]
+    [InlineData("ZZ")]
+    public void GetCurrency_ReturnsNull_ForInvalidOrMissingCode(string? code)
+    {
+        Assert.Null(_service.GetCurrency(code));
+    }
 }

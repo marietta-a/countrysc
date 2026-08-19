@@ -123,6 +123,20 @@ public class CountrySCService
     }
 
     /// <summary>
+    /// Gets the currency details for a given 2-letter country code.
+    /// Returns null if the country code is missing or unknown.
+    /// </summary>
+    public CountryCurrency? GetCurrency(string? countryCode)
+    {
+        if (string.IsNullOrWhiteSpace(countryCode)) return null;
+
+        var country = GetByCountryCode(countryCode);
+        if (country == null) return null;
+
+        return CountryCurrencies.Currencies.TryGetValue(country.CountryCode, out var currency) ? currency : null;
+    }
+
+    /// <summary>
     /// Gets the raw SVG markup of the flag icon for a given 2-letter country code.
     /// Empty string if the country code is missing, unknown, or has no embedded flag icon.
     /// </summary>

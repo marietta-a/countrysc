@@ -47,6 +47,14 @@ IEnumerable<string> languages = geo.GetLanguages("CH"); // French, German, Itali
 
 // Square SVG flag icon for a country (raw markup)
 string flagSvg = geo.GetFlagSvg("US");
+
+// Currency details for a country (e.g. United States Dollar, USD, $)
+CountryCurrency? currency = geo.GetCurrency("US");
+
+// Or via country properties:
+string currencyName = us.Currency; // "United States Dollar"
+string currencyIso = us.Iso4217;  // "USD"
+string currencySymbol = us.Symbol; // "$"
 ```
 
 ## API
@@ -63,6 +71,7 @@ string flagSvg = geo.GetFlagSvg("US");
 | `GetTimeZones(string? countryCode)` | IANA time zones observed in a country (e.g. `"America/New_York"`). Empty if the country code is missing or unknown. |
 | `GetLanguages(string? countryCode)` | Official language(s) of a country (e.g. `"English"`). Empty if the country code is missing or unknown. |
 | `GetFlagSvg(string? countryCode)` | Raw SVG markup of a country's square flag icon. Empty string if the country code is missing, unknown, or has no embedded icon. |
+| `GetCurrency(string? countryCode)` | Gets the currency details for a given 2-letter country code. Returns `null` if the country code is missing or unknown. |
 
 ### Properties
 
@@ -75,8 +84,12 @@ string flagSvg = geo.GetFlagSvg("US");
   - `TimeZones` — the country's `TimeZoneEntry` list
   - `OfficialLanguages` — the country's official language name(s)
   - `FlagSvg` — raw SVG markup of the country's square flag icon, empty string if unavailable
+  - `Currency` — name of the country's currency (e.g. `"United States Dollar"`)
+  - `Iso4217` — three-letter ISO 4217 currency code (e.g. `"USD"`)
+  - `Symbol` — currency symbol (e.g. `"$"` or `"€"`)
 - **`State`** — `Id`, `Name`, `Cities`
 - **`City`** — `Id`, `Name`
+- **`CountryCurrency`** — `Currency` (name of the currency), `Iso4217` (three-letter code), `Symbol` (symbol)
 - **`TimeZoneEntry`** — `ZoneName` (IANA identifier), `CountryCode`, plus computed properties:
   - `BaseUtcOffset` — standard (non-DST) UTC offset, resolved from the local system's time zone database
   - `CurrentUtcOffset` — UTC offset right now, including DST if in effect
@@ -84,3 +97,5 @@ string flagSvg = geo.GetFlagSvg("US");
 Time zone data covers 246 countries/territories (418 zones total). Only IANA zone names are embedded; UTC offsets are resolved live via `TimeZoneInfo` so they stay correct across DST transitions instead of going stale.
 
 Official language data covers 201 countries/territories. Coverage follows the source article and skips a handful of micro-territories and a few disputed/partially-recognized territories not present in the country dataset.
+
+Currency data covers 250 countries/territories. Sourced from the Geocountries currency database (https://www.geocountries.com/country/currencies).

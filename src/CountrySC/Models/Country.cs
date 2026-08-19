@@ -76,6 +76,24 @@ public class Country
     public string FlagSvg => CountryFlags.GetSvg(CountryCode);
 
     /// <summary>
+    /// Currency name of this country (e.g., "United States Dollar", "Euro").
+    /// </summary>
+    [JsonIgnore]
+    public string Currency => GetCurrency(CountryCode)?.Currency ?? string.Empty;
+
+    /// <summary>
+    /// Three-letter ISO 4217 currency code (e.g., "USD", "EUR").
+    /// </summary>
+    [JsonIgnore]
+    public string Iso4217 => GetCurrency(CountryCode)?.Iso4217 ?? string.Empty;
+
+    /// <summary>
+    /// Currency symbol (e.g., "$", "€").
+    /// </summary>
+    [JsonIgnore]
+    public string Symbol => GetCurrency(CountryCode)?.Symbol ?? string.Empty;
+
+    /// <summary>
     /// Converts Regional Indicator codepoints in "emojiU" string (e.g., "U+1F1E6 U+1F1EB") into a 2-letter ISO country code.
     /// </summary>
     public static string GetCountryCodeFromEmojiU(string emojiU)
@@ -98,6 +116,12 @@ public class Country
         {
             return string.Empty;
         }
+    }
+
+    private static CountryCurrency? GetCurrency(string countryCode)
+    {
+        if (string.IsNullOrEmpty(countryCode)) return null;
+        return CountryCurrencies.Currencies.TryGetValue(countryCode.ToUpperInvariant(), out var currency) ? currency : null;
     }
 
     private static string GetPhoneCode(string countryCode)

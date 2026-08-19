@@ -6,7 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Title>CountrySC</Title>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-	<PackageVersion>1.0.0</PackageVersion>
+	<PackageVersion>1.1.0</PackageVersion>
     <FileVersion></FileVersion>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <Description>A lightweight .NET library providing a complete, offline dataset of countries, states/provinces, and cities - with ISO country codes, flag emojis, and international dial codes derived on the fly. No API calls, no network dependency;</Description>
@@ -14,7 +14,7 @@
     <PackageProjectUrl>https://github.com/marietta-a/countrysc</PackageProjectUrl>
     <RepositoryUrl>https://github.com/marietta-a/countrysc</RepositoryUrl>
     <PackageTags>countries; states; cities; country code; phone code; iso3166; timezone; timezones; language; languages; flags; flag icons; geolocation; geo; offline</PackageTags>
-    <Version>1.0.0</Version>
+    <Version>1.1.0</Version>
     <Authors>Marietta Akumbom</Authors>
   </PropertyGroup>
 

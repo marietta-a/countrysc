@@ -96,6 +96,20 @@
             }
         </ul>
     }
+
+    <h4>Currency</h4>
+    @if (string.IsNullOrEmpty(_selectedCountry.Currency))
+    {
+        <p><em>No currency data for this country.</em></p>
+    }
+    else
+    {
+        <ul>
+            <li><strong>Name:</strong> @_selectedCountry.Currency</li>
+            <li><strong>ISO 4217:</strong> @_selectedCountry.Iso4217</li>
+            <li><strong>Symbol:</strong> @_selectedCountry.Symbol</li>
+        </ul>
+    }
 }
 
 @code {
