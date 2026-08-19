@@ -123,6 +123,18 @@ public class CSCService
     }
 
     /// <summary>
+    /// Gets the raw SVG markup of the flag icon for a given 2-letter country code.
+    /// Empty string if the country code is missing, unknown, or has no embedded flag icon.
+    /// </summary>
+    public string GetFlagSvg(string? countryCode)
+    {
+        if (string.IsNullOrWhiteSpace(countryCode)) return string.Empty;
+
+        var country = GetByCountryCode(countryCode);
+        return country?.FlagSvg ?? string.Empty;
+    }
+
+    /// <summary>
     /// Gets states for a given 2-letter country code.
     /// </summary>
     public IEnumerable<State> GetStates(string? countryCode)

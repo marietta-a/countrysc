@@ -69,6 +69,13 @@ public class Country
     public IReadOnlyList<string> OfficialLanguages => GetLanguages(CountryCode);
 
     /// <summary>
+    /// Raw SVG markup of the country's square flag icon. Empty string if no icon is embedded
+    /// for this country code.
+    /// </summary>
+    [JsonIgnore]
+    public string FlagSvg => CountryFlags.GetSvg(CountryCode);
+
+    /// <summary>
     /// Converts Regional Indicator codepoints in "emojiU" string (e.g., "U+1F1E6 U+1F1EB") into a 2-letter ISO country code.
     /// </summary>
     public static string GetCountryCodeFromEmojiU(string emojiU)

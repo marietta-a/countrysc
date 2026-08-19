@@ -62,4 +62,20 @@ public class CountryTests
 
         Assert.Empty(country.OfficialLanguages);
     }
+
+    [Fact]
+    public void FlagSvg_ReturnsSvgMarkup_ForKnownCountry()
+    {
+        var country = new Country { Name = "United States", EmojiU = "U+1F1FA U+1F1F8" };
+
+        Assert.StartsWith("<svg", country.FlagSvg);
+    }
+
+    [Fact]
+    public void FlagSvg_ReturnsEmpty_WhenCountryCodeCannotBeDerived()
+    {
+        var country = new Country { Name = "Unknown" };
+
+        Assert.Empty(country.FlagSvg);
+    }
 }

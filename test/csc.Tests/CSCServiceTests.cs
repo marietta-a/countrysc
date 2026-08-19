@@ -183,4 +183,24 @@ public class CSCServiceTests
     {
         Assert.Empty(_service.GetLanguages(code));
     }
+
+    [Theory]
+    [InlineData("US")]
+    [InlineData("us")]
+    public void GetFlagSvg_ReturnsSvgMarkup_ForValidCountry_CaseInsensitive(string code)
+    {
+        var svg = _service.GetFlagSvg(code);
+
+        Assert.StartsWith("<svg", svg);
+    }
+
+    [Theory]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData("   ")]
+    [InlineData("ZZ")]
+    public void GetFlagSvg_ReturnsEmpty_ForInvalidOrMissingCode(string? code)
+    {
+        Assert.Empty(_service.GetFlagSvg(code));
+    }
 }

@@ -55,6 +55,18 @@
 
 @if (_selectedCountry != null)
 {
+    <h4>Flag</h4>
+    @if (string.IsNullOrEmpty(_selectedCountry.FlagSvg))
+    {
+        <p><em>No flag icon for this country.</em></p>
+    }
+    else
+    {
+        <div style="width: 96px; height: 96px; border: 1px solid #dee2e6;">
+            @((MarkupString)_selectedCountry.FlagSvg)
+        </div>
+    }
+
     <h4>Time Zones</h4>
     @if (_selectedCountry.TimeZones.Count == 0)
     {
