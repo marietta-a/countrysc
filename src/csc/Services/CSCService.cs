@@ -101,6 +101,17 @@ public class CSCService
 
 
     /// <summary>
+    /// Gets the IANA time zones for a given 2-letter country code.
+    /// </summary>
+    public IEnumerable<TimeZoneEntry> GetTimeZones(string? countryCode)
+    {
+        if (string.IsNullOrWhiteSpace(countryCode)) return [];
+
+        var country = GetByCountryCode(countryCode);
+        return country?.TimeZones ?? [];
+    }
+
+    /// <summary>
     /// Gets states for a given 2-letter country code.
     /// </summary>
     public IEnumerable<State> GetStates(string? countryCode)

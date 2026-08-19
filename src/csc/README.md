@@ -33,6 +33,10 @@ IEnumerable<City> cities = geo.GetCities("US", california.Id);
 
 // Find every country sharing an international dial code
 IEnumerable<Country> plusOne = geo.GetByPhoneCode("+1"); // US, CA, ...
+
+// IANA time zones for a country
+IEnumerable<TimeZoneEntry> zones = geo.GetTimeZones("US"); // America/New_York, America/Chicago, ...
+TimeSpan? offset = zones.First().CurrentUtcOffset;
 ```
 
 ## API
@@ -46,6 +50,7 @@ IEnumerable<Country> plusOne = geo.GetByPhoneCode("+1"); // US, CA, ...
 | `GetByPhoneCode(string phoneCode)` | Finds all countries matching an e.164 dial code (e.g. `"1"` or `"+1"`). |
 | `GetStates(string? countryCode)` | States/provinces for a country, sorted alphabetically. Empty if the country code is missing or unknown. |
 | `GetCities(string? countryCode, int? stateId)` | Cities for a given country + state id, sorted alphabetically. Empty if either argument is missing or unknown. |
+| `GetTimeZones(string? countryCode)` | IANA time zones observed in a country (e.g. `"America/New_York"`). Empty if the country code is missing or unknown. |
 
 ### Properties
 
@@ -55,6 +60,17 @@ IEnumerable<Country> plusOne = geo.GetByPhoneCode("+1"); // US, CA, ...
   - `PhoneCode` — international dialing code (e.g. `"1"`, `"44"`)
   - `Example` — a sample local phone number for the country
   - `DisplayName` — `"United States (US)"`
+  - `TimeZones` — the country's `TimeZoneEntry` list
 - **`State`** — `Id`, `Name`, `Cities`
 - **`City`** — `Id`, `Name`
+- **`TimeZoneEntry`** — `ZoneName` (IANA identifier), `CountryCode`, plus computed properties:
+  - `BaseUtcOffset` — standard (non-DST) UTC offset, resolved from the local system's time zone database
+  - `CurrentUtcOffset` — UTC offset right now, including DST if in effect
+
+Time zone data covers 246 countries/territories (418 zones total). Only IANA zone names are embedded; UTC offsets are resolved live via `TimeZoneInfo` so they stay correct across DST transitions instead of going stale.
+
+## Data sources
+
+- Countries/states/cities, flag emojis, and phone codes — embedded dataset in `countries.json.br`
+- Time zones — [TimeZoneDB time zone list](https://timezonedb.com/time-zones)
 

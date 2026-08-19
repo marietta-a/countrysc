@@ -123,4 +123,34 @@ public class CSCServiceTests
     {
         Assert.Empty(_service.GetCities("ZZ", 1456));
     }
+
+    [Theory]
+    [InlineData("US")]
+    [InlineData("us")]
+    public void GetTimeZones_ReturnsZonesForValidCountry_CaseInsensitive(string code)
+    {
+        var zones = _service.GetTimeZones(code).ToList();
+
+        Assert.NotEmpty(zones);
+        Assert.Contains(zones, z => z.ZoneName == "America/New_York");
+        Assert.All(zones, z => Assert.Equal("US", z.CountryCode));
+    }
+
+    [Fact]
+    public void GetTimeZones_ReturnsMultipleZones_ForMultiZoneCountry()
+    {
+        var zones = _service.GetTimeZones("RU").ToList();
+
+        Assert.True(zones.Count > 1);
+    }
+
+    [Theory]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData("   ")]
+    [InlineData("ZZ")]
+    public void GetTimeZones_ReturnsEmpty_ForInvalidOrMissingCode(string? code)
+    {
+        Assert.Empty(_service.GetTimeZones(code));
+    }
 }

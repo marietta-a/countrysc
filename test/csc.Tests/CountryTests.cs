@@ -29,4 +29,21 @@ public class CountryTests
 
         Assert.Equal("United States (US)", country.DisplayName);
     }
+
+    [Fact]
+    public void TimeZones_ReturnsZonesForCountry()
+    {
+        var country = new Country { Name = "Greece", EmojiU = "U+1F1EC U+1F1F7" };
+
+        Assert.Contains(country.TimeZones, z => z.ZoneName == "Europe/Athens");
+        Assert.All(country.TimeZones, z => Assert.Equal("GR", z.CountryCode));
+    }
+
+    [Fact]
+    public void TimeZones_ReturnsEmpty_WhenCountryCodeCannotBeDerived()
+    {
+        var country = new Country { Name = "Unknown" };
+
+        Assert.Empty(country.TimeZones);
+    }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json.Serialization;
 
 namespace csc;
@@ -56,6 +57,12 @@ public class Country
     public string DisplayName => $"{Name} ({CountryCode})";
 
     /// <summary>
+    /// IANA time zones observed within this country (e.g., "America/New_York").
+    /// </summary>
+    [JsonIgnore]
+    public IReadOnlyList<TimeZoneEntry> TimeZones => GetTimeZones(CountryCode);
+
+    /// <summary>
     /// Converts Regional Indicator codepoints in "emojiU" string (e.g., "U+1F1E6 U+1F1EB") into a 2-letter ISO country code.
     /// </summary>
     public static string GetCountryCodeFromEmojiU(string emojiU)
@@ -90,6 +97,13 @@ public class Country
     {
         if (string.IsNullOrEmpty(countryCode)) return "202-555-0199";
         return ExamplePhoneMap.TryGetValue(countryCode.ToUpperInvariant(), out var example) ? example : "202-555-0199";
+    }
+
+    private static IReadOnlyList<TimeZoneEntry> GetTimeZones(string countryCode)
+    {
+        if (string.IsNullOrEmpty(countryCode)) return [];
+        if (!CountryTimeZones.Zones.TryGetValue(countryCode.ToUpperInvariant(), out var zones)) return [];
+        return zones.Select(z => new TimeZoneEntry { ZoneName = z, CountryCode = countryCode }).ToList();
     }
 
     private static readonly Dictionary<string, string> ExamplePhoneMap = new(StringComparer.OrdinalIgnoreCase)
