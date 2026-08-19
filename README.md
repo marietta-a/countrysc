@@ -95,6 +95,10 @@ dotnet build csc.slnx
 dotnet test test/csc.Tests/csc.Tests.csproj
 ```
 
+## Disclaimer
+
+This library bundles country, state/province, city, flag, time zone, and language data for general informational and development use. Inclusion of any country, territory, or region - and the names, borders, or flags used to represent it - does not imply any opinion on its political status, sovereignty, or legal recognition. Data is aggregated from the third-party sources listed above, may contain inaccuracies, and can become outdated.
+
 ## License
 
 [MIT](LICENSE)
