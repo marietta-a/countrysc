@@ -4,12 +4,7 @@
 
 # CountrySC
 
-[![NuGet version](https://img.shields.io/nuget/v/CountrySC.svg)](https://www.nuget.org/packages/CountrySC)
-[![NuGet downloads](https://img.shields.io/nuget/dt/CountrySC.svg)](https://www.nuget.org/packages/CountrySC)
-
 A lightweight .NET library providing a complete, offline dataset of countries, states/provinces, and cities — with ISO country codes, flag emojis, and international dial codes derived on the fly. No API calls, no network dependency; the dataset ships embedded (Brotli-compressed) inside the package.
-
-If CountrySC is useful to you, consider giving the repo a ⭐ — it helps other .NET developers find the project.
 
 ## Install
 
@@ -49,6 +44,9 @@ TimeSpan? offset = zones.First().CurrentUtcOffset;
 
 // Official language(s) for a country
 IEnumerable<string> languages = geo.GetLanguages("CH"); // French, German, Italian, Romansh
+
+// Square SVG flag icon for a country (raw markup)
+string flagSvg = geo.GetFlagSvg("US");
 ```
 
 ## API
@@ -64,8 +62,9 @@ IEnumerable<string> languages = geo.GetLanguages("CH"); // French, German, Itali
 | `GetCities(string? countryCode, int? stateId)` | Cities for a given country + state id, sorted alphabetically. Empty if either argument is missing or unknown. |
 | `GetTimeZones(string? countryCode)` | IANA time zones observed in a country (e.g. `"America/New_York"`). Empty if the country code is missing or unknown. |
 | `GetLanguages(string? countryCode)` | Official language(s) of a country (e.g. `"English"`). Empty if the country code is missing or unknown. |
+| `GetFlagSvg(string? countryCode)` | Raw SVG markup of a country's square flag icon. Empty string if the country code is missing, unknown, or has no embedded icon. |
 
-### Models
+### Properties
 
 - **`Country`** — `Id`, `Name`, `States`, plus computed properties:
   - `CountryCode` — ISO alpha-2 code, derived from the flag emoji's Unicode codepoints
@@ -75,6 +74,7 @@ IEnumerable<string> languages = geo.GetLanguages("CH"); // French, German, Itali
   - `DisplayName` — `"United States (US)"`
   - `TimeZones` — the country's `TimeZoneEntry` list
   - `OfficialLanguages` — the country's official language name(s)
+  - `FlagSvg` — raw SVG markup of the country's square flag icon, empty string if unavailable
 - **`State`** — `Id`, `Name`, `Cities`
 - **`City`** — `Id`, `Name`
 - **`TimeZoneEntry`** — `ZoneName` (IANA identifier), `CountryCode`, plus computed properties:
@@ -84,45 +84,3 @@ IEnumerable<string> languages = geo.GetLanguages("CH"); // French, German, Itali
 Time zone data covers 246 countries/territories (418 zones total). Only IANA zone names are embedded; UTC offsets are resolved live via `TimeZoneInfo` so they stay correct across DST transitions instead of going stale.
 
 Official language data covers 201 countries/territories. Coverage follows the source article and skips a handful of micro-territories and a few disputed/partially-recognized territories not present in the country dataset.
-
-## Data sources
-
-- Countries/states/cities, flag emojis, and phone codes — embedded dataset in `countries.json.br`
-- Time zones — [TimeZoneDB time zone list](https://timezonedb.com/time-zones)
-- Official languages — [Wikipedia: List of official languages by country and territory](https://en.wikipedia.org/wiki/List_of_official_languages_by_country_and_territory)
-
-## Repository layout
-
-- [`src/CountrySC`](src/CountrySC) — the library
-- [`test/CountrySC.Tests`](test/CountrySC.Tests) — xUnit test suite
-- [`test/CountrySC.TestApp`](test/CountrySC.TestApp) — Blazor Server sample app with cascading Country → State → City dropdowns
-
-## Try the sample app
-
-[`test/CountrySC.TestApp`](test/CountrySC.TestApp) is a small Blazor Server app that exercises the library end to end. Run it from the repo root:
-
-```bash
-dotnet run --project test/CountrySC.TestApp/CountrySC.TestApp.csproj
-```
-
-Then open the URL printed in the console (`https://localhost:7280` by default) in your browser. Pick a country from the dropdown to see:
-
-- cascading **State** and **City** dropdowns for that country
-- its **time zones**, with live UTC offsets
-- its **official language(s)**
-- its **flag icon**, rendered from the embedded SVG
-
-## Development
-
-```bash
-dotnet build CountrySC.slnx
-dotnet test test/CountrySC.Tests/CountrySC.Tests.csproj
-```
-
-## Disclaimer
-
-This library bundles country, state/province, city, flag, time zone, and language data for general informational and development use. Inclusion of any country, territory, or region - and the names, borders, or flags used to represent it - does not imply any opinion on its political status, sovereignty, or legal recognition. Data is aggregated from the third-party sources listed above, may contain inaccuracies, and can become outdated.
-
-## License
-
-[MIT](LICENSE)

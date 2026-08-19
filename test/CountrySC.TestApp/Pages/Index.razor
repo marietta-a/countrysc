@@ -1,0 +1,164 @@
+@page "/"
+@using CountrySC
+@inject CountrySCService GeoService
+
+<PageTitle>CountrySC Test</PageTitle>
+
+<h1>CountrySC Test</h1>
+<p>Pick a country, then a state, then a city to exercise the cascading dropdowns.</p>
+
+<div class="row" style="max-width: 900px;">
+    <div class="col-md-4 mb-3">
+        <label for="country" class="form-label"><strong>Country</strong></label>
+        <select id="country" class="form-select" @onchange="OnCountryChanged">
+            <option value="">-- Select a country --</option>
+            @foreach (var country in _countries)
+            {
+                <option value="@country.CountryCode" selected="@(country.CountryCode == _selectedCountryCode)">
+                    @country.FlagEmoji @country.Name
+                </option>
+            }
+        </select>
+    </div>
+
+    <div class="col-md-4 mb-3">
+        <label for="state" class="form-label"><strong>State / Province</strong></label>
+        <select id="state" class="form-select" @onchange="OnStateChanged" disabled="@(string.IsNullOrEmpty(_selectedCountryCode))">
+            <option value="">-- Select a state --</option>
+            @foreach (var state in _states)
+            {
+                <option value="@state.Id" selected="@(state.Id == _selectedStateId)">@state.Name</option>
+            }
+        </select>
+    </div>
+
+    <div class="col-md-4 mb-3">
+        <label for="city" class="form-label"><strong>City</strong></label>
+        <select id="city" class="form-select" @onchange="OnCityChanged" disabled="@(_selectedStateId == null)">
+            <option value="">-- Select a city --</option>
+            @foreach (var city in _cities)
+            {
+                <option value="@city.Id" selected="@(city.Id == _selectedCityId)">@city.Name</option>
+            }
+        </select>
+    </div>
+</div>
+
+<hr />
+
+<h4>Selection</h4>
+<ul>
+    <li><strong>Country:</strong> @(_selectedCountry?.Name ?? "(none)") @(_selectedCountry != null ? $"[{_selectedCountry.CountryCode}]" : "")</li>
+    <li><strong>State:</strong> @(_selectedState?.Name ?? "(none)")</li>
+    <li><strong>City:</strong> @(_selectedCity?.Name ?? "(none)")</li>
+</ul>
+
+@if (_selectedCountry != null)
+{
+    <h4>Flag</h4>
+    @if (string.IsNullOrEmpty(_selectedCountry.FlagSvg))
+    {
+        <p><em>No flag icon for this country.</em></p>
+    }
+    else
+    {
+        <div style="width: 96px; height: 96px; border: 1px solid #dee2e6;">
+            @((MarkupString)_selectedCountry.FlagSvg)
+        </div>
+    }
+
+    <h4>Time Zones</h4>
+    @if (_selectedCountry.TimeZones.Count == 0)
+    {
+        <p><em>No time zone data for this country.</em></p>
+    }
+    else
+    {
+        <ul>
+            @foreach (var zone in _selectedCountry.TimeZones)
+            {
+                <li>@zone.ZoneName (@FormatOffset(zone.CurrentUtcOffset))</li>
+            }
+        </ul>
+    }
+
+    <h4>Official Languages</h4>
+    @if (_selectedCountry.OfficialLanguages.Count == 0)
+    {
+        <p><em>No language data for this country.</em></p>
+    }
+    else
+    {
+        <ul>
+            @foreach (var language in _selectedCountry.OfficialLanguages)
+            {
+                <li>@language</li>
+            }
+        </ul>
+    }
+}
+
+@code {
+    private List<Country> _countries = [];
+    private List<State> _states = [];
+    private List<City> _cities = [];
+
+    private string? _selectedCountryCode;
+    private int? _selectedStateId;
+    private int? _selectedCityId;
+
+    private Country? _selectedCountry;
+    private State? _selectedState;
+    private City? _selectedCity;
+
+    protected override void OnInitialized()
+    {
+        _countries = GeoService.GetAll().ToList();
+    }
+
+    private void OnCountryChanged(ChangeEventArgs e)
+    {
+        _selectedCountryCode = e.Value?.ToString();
+        _selectedCountry = string.IsNullOrEmpty(_selectedCountryCode)
+            ? null
+            : GeoService.GetByCountryCode(_selectedCountryCode);
+
+        _states = GeoService.GetStates(_selectedCountryCode).ToList();
+
+        _selectedStateId = null;
+        _selectedState = null;
+        _cities = [];
+        _selectedCityId = null;
+        _selectedCity = null;
+    }
+
+    private void OnStateChanged(ChangeEventArgs e)
+    {
+        var value = e.Value?.ToString();
+        _selectedStateId = int.TryParse(value, out var stateId) ? stateId : null;
+        _selectedState = _selectedStateId == null
+            ? null
+            : _states.FirstOrDefault(s => s.Id == _selectedStateId);
+
+        _cities = GeoService.GetCities(_selectedCountryCode, _selectedStateId).ToList();
+
+        _selectedCityId = null;
+        _selectedCity = null;
+    }
+
+    private void OnCityChanged(ChangeEventArgs e)
+    {
+        var value = e.Value?.ToString();
+        _selectedCityId = int.TryParse(value, out var cityId) ? cityId : null;
+        _selectedCity = _selectedCityId == null
+            ? null
+            : _cities.FirstOrDefault(c => c.Id == _selectedCityId);
+    }
+
+    private static string FormatOffset(TimeSpan? offset)
+    {
+        if (offset == null) return "unknown";
+        var sign = offset.Value < TimeSpan.Zero ? "-" : "+";
+        return $"UTC{sign}{offset.Value.Duration():hh\\:mm}";
+    }
+}

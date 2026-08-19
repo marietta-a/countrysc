@@ -1,5 +1,0 @@
-<Solution>
-  <Project Path="src/csc/csc.csproj" />
-  <Project Path="test/csc.TestApp/csc.TestApp.csproj" />
-  <Project Path="test/csc.Tests/csc.Tests.csproj" />
-</Solution>

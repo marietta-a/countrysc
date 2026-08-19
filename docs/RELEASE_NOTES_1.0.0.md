@@ -1,10 +1,10 @@
-# Release Notes — csc 1.0.0
+# Release Notes — CountrySC 1.0.0
 
-Initial release of `csc`: a lightweight, offline dataset of countries, states/provinces, and cities for .NET. No API calls, no network dependency — the dataset ships embedded (Brotli-compressed) inside the package.
+Initial release of `CountrySC`: a lightweight, offline dataset of countries, states/provinces, and cities for .NET. No API calls, no network dependency — the dataset ships embedded (Brotli-compressed) inside the package.
 
 ## Added
 
-- `CSCService` for querying the embedded dataset:
+- `CountrySCService` for querying the embedded dataset:
   - `GetAll()` — all countries, sorted alphabetically by name.
   - `GetByCountryCode(string)` — case-insensitive lookup by ISO 3166-1 alpha-2 code.
   - `GetByPhoneCode(string)` — lookup countries by e.164 dial code (accepts a leading `+`).

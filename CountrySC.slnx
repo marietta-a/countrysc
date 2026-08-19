@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="src/CountrySC/CountrySC.csproj" />
+  <Project Path="test/CountrySC.TestApp/CountrySC.TestApp.csproj" />
+  <Project Path="test/CountrySC.Tests/CountrySC.Tests.csproj" />
+</Solution>

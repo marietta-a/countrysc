@@ -1,4 +1,4 @@
-<svg width="1200" height="300" viewBox="0 0 1200 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="csc — offline Countries, States, Cities for .NET">
+<svg width="1200" height="300" viewBox="0 0 1200 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="CountrySC — offline Countries, States, Cities for .NET">
   <defs>
     <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#0f172a"/>
@@ -18,7 +18,7 @@
     <circle cx="60" cy="280" r="120" fill="#22d3ee" opacity="0.06"/>
 
     <!-- title -->
-    <text x="72" y="140" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="88" font-weight="700" fill="#f8fafc">csc</text>
+    <text x="72" y="140" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="88" font-weight="700" fill="#f8fafc">CountrySC</text>
 
     <!-- tagline -->
     <text x="76" y="182" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="24" fill="#a5f3fc">Offline Countries · States · Cities · Flags · Time Zones · Languages</text>
