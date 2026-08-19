@@ -1,3 +1,7 @@
+<p align="center">
+  <img src=".github/images/banner.svg" alt="csc - offline Countries, States, Cities for .NET" width="100%" />
+</p>
+
 # csc
 
 A lightweight .NET library providing a complete, offline dataset of countries, states/provinces, and cities — with ISO country codes, flag emojis, and international dial codes derived on the fly. No API calls, no network dependency; the dataset ships embedded (Brotli-compressed) inside the package.

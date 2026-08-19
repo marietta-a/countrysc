@@ -1,0 +1,53 @@
+<svg width="1200" height="300" viewBox="0 0 1200 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="csc — offline Countries, States, Cities for .NET">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#155e63"/>
+    </linearGradient>
+    <clipPath id="rounded">
+      <rect x="0" y="0" width="1200" height="300" rx="18"/>
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#rounded)">
+    <rect x="0" y="0" width="1200" height="300" fill="url(#bg)"/>
+
+    <!-- soft depth circles -->
+    <circle cx="1040" cy="40" r="180" fill="#22d3ee" opacity="0.08"/>
+    <circle cx="1160" cy="260" r="140" fill="#38bdf8" opacity="0.10"/>
+    <circle cx="60" cy="280" r="120" fill="#22d3ee" opacity="0.06"/>
+
+    <!-- title -->
+    <text x="72" y="140" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="88" font-weight="700" fill="#f8fafc">csc</text>
+
+    <!-- tagline -->
+    <text x="76" y="182" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="24" fill="#a5f3fc">Offline Countries · States · Cities · Flags · Time Zones · Languages</text>
+    <text x="76" y="214" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="18" fill="#94a3b8">A lightweight, dependency-free dataset for .NET — no API calls, no network required</text>
+
+    <!-- .NET pill -->
+    <rect x="76" y="236" width="86" height="30" rx="15" fill="#0ea5b7" opacity="0.18" stroke="#22d3ee" stroke-opacity="0.5"/>
+    <text x="94" y="256" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#a5f3fc">.NET 10</text>
+
+    <!-- MIT pill -->
+    <rect x="176" y="236" width="70" height="30" rx="15" fill="#0ea5b7" opacity="0.18" stroke="#22d3ee" stroke-opacity="0.5"/>
+    <text x="192" y="256" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#a5f3fc">MIT</text>
+
+    <!-- decorative flag swatches -->
+    <g>
+      <rect x="760" y="66"  width="42" height="42" rx="8" fill="#ef4444" transform="rotate(-6 781 87)"/>
+      <rect x="822" y="48"  width="42" height="42" rx="8" fill="#f59e0b" transform="rotate(4 843 69)"/>
+      <rect x="884" y="70"  width="42" height="42" rx="8" fill="#22c55e" transform="rotate(-3 905 91)"/>
+      <rect x="946" y="50"  width="42" height="42" rx="8" fill="#3b82f6" transform="rotate(6 967 71)"/>
+      <rect x="1008" y="68" width="42" height="42" rx="8" fill="#a855f7" transform="rotate(-5 1029 89)"/>
+
+      <rect x="792" y="122" width="42" height="42" rx="8" fill="#38bdf8" transform="rotate(5 813 143)"/>
+      <rect x="854" y="140" width="42" height="42" rx="8" fill="#facc15" transform="rotate(-4 875 161)"/>
+      <rect x="916" y="118" width="42" height="42" rx="8" fill="#fb7185" transform="rotate(3 937 139)"/>
+      <rect x="978" y="138" width="42" height="42" rx="8" fill="#34d399" transform="rotate(-6 999 159)"/>
+
+      <rect x="822" y="196" width="42" height="42" rx="8" fill="#f97316" transform="rotate(-3 843 217)"/>
+      <rect x="884" y="200" width="42" height="42" rx="8" fill="#818cf8" transform="rotate(4 905 221)"/>
+      <rect x="946" y="192" width="42" height="42" rx="8" fill="#2dd4bf" transform="rotate(-5 967 213)"/>
+    </g>
+  </g>
+</svg>
