@@ -8,7 +8,7 @@
     }
   },
   "profiles": {
-    "GeoLocation.Data.TestApp": {
+    "csc.TestApp": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,

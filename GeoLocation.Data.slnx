@@ -1,5 +1,0 @@
-<Solution>
-  <Project Path="src/GeoLocation.Data/GeoLocation.Data.csproj" />
-  <Project Path="test/GeoLocation.Data.TestApp/GeoLocation.Data.TestApp.csproj" />
-  <Project Path="test/GeoLocation.Data.Tests/GeoLocation.Data.Tests.csproj" />
-</Solution>

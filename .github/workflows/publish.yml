@@ -41,13 +41,13 @@ jobs:
       run: dotnet restore
 
     - name: Build Project
-      run: dotnet build src/GeoLocation.Data/GeoLocation.Data.csproj --configuration Release --no-restore
+      run: dotnet build src/csc/csc.csproj --configuration Release --no-restore
 
     - name: Run Unit Tests
-      run: dotnet test test/GeoLocation.Data.Tests/GeoLocation.Data.Tests.csproj --configuration Release --verbosity normal
+      run: dotnet test test/csc.Tests/csc.Tests.csproj --configuration Release --verbosity normal
 
     - name: Pack NuGet Package
-      run: dotnet pack src/GeoLocation.Data/GeoLocation.Data.csproj --configuration Release --no-build --output ./nupkg
+      run: dotnet pack src/csc/csc.csproj --configuration Release --no-build --output ./nupkg
 
     - name: NuGet Login
       if: |

@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\GeoLocation.Data\GeoLocation.Data.csproj" />
+    <ProjectReference Include="..\..\src\csc\csc.csproj" />
   </ItemGroup>
 
 </Project>

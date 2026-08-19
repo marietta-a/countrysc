@@ -1,11 +1,11 @@
-# GeoLocation.Data
+# csc
 
 A lightweight .NET library providing a complete, offline dataset of countries, states/provinces, and cities — with ISO country codes, flag emojis, and international dial codes derived on the fly. No API calls, no network dependency; the dataset ships embedded (Brotli-compressed) inside the package.
 
 ## Install
 
 ```bash
-dotnet add package GeoLocation.Data
+dotnet add package csc
 ```
 
 Targets `net10.0`.
@@ -13,9 +13,9 @@ Targets `net10.0`.
 ## Quick start
 
 ```csharp
-using GeoLocation.Data;
+using csc;
 
-var geo = new GeoLocationService();
+var geo = new CSCService();
 
 // All countries, sorted alphabetically by name
 IEnumerable<Country> countries = geo.GetAll();
@@ -37,7 +37,7 @@ IEnumerable<Country> plusOne = geo.GetByPhoneCode("+1"); // US, CA, ...
 
 ## API
 
-### `GeoLocationService`
+### `CSCService`
 
 | Method | Description |
 | --- | --- |
@@ -60,15 +60,15 @@ IEnumerable<Country> plusOne = geo.GetByPhoneCode("+1"); // US, CA, ...
 
 ## Repository layout
 
-- [`src/GeoLocation.Data`](src/GeoLocation.Data) — the library
-- [`test/GeoLocation.Data.Tests`](test/GeoLocation.Data.Tests) — xUnit test suite
-- [`test/GeoLocation.Data.TestApp`](test/GeoLocation.Data.TestApp) — Blazor Server sample app with cascading Country → State → City dropdowns
+- [`src/csc`](src/csc) — the library
+- [`test/csc.Tests`](test/csc.Tests) — xUnit test suite
+- [`test/csc.TestApp`](test/csc.TestApp) — Blazor Server sample app with cascading Country → State → City dropdowns
 
 ## Development
 
 ```bash
-dotnet build GeoLocation.Data.slnx
-dotnet test test/GeoLocation.Data.Tests/GeoLocation.Data.Tests.csproj
+dotnet build csc.slnx
+dotnet test test/csc.Tests/csc.Tests.csproj
 ```
 
 ## License

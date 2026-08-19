@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace GeoLocation.Data;
+namespace csc;
 
 /// <summary>
 /// Represents a country with ISO code, flag emoji, and its hierarchical states/provinces.

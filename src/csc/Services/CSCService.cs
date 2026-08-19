@@ -5,16 +5,16 @@ using System.Linq;
 using System.Reflection;
 using System.Text.Json;
 
-namespace GeoLocation.Data;
+namespace csc;
 
 /// <summary>
 /// Service to load and manage the full dataset of countries from the embedded JSON resource.
 /// </summary>
-public class GeoLocationService
+public class CSCService
 {
     private readonly List<Country> _countries = [];
 
-    public GeoLocationService()
+    public CSCService()
     {
         LoadCountries();
     }
@@ -26,7 +26,7 @@ public class GeoLocationService
             var assembly = Assembly.GetExecutingAssembly();
 
             // Note: Resource name structure is Namespace.FileName.br
-            using var stream = assembly.GetManifestResourceStream("GeoLocation.Data.countries.json.br");
+            using var stream = assembly.GetManifestResourceStream("csc.countries.json.br");
             if (stream == null)
             {
                 // Fallback attempt in case namespaces differ slightly
@@ -48,7 +48,7 @@ public class GeoLocationService
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"[GeoLocation.Data] Error loading embedded country codes: {ex.Message}");
+            Console.WriteLine($"[csc] Error loading embedded country codes: {ex.Message}");
         }
     }
 

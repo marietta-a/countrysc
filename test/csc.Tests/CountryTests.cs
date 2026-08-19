@@ -1,6 +1,6 @@
-using GeoLocation.Data;
+using csc;
 
-namespace GeoLocation.Data.Tests;
+namespace csc.Tests;
 
 public class CountryTests
 {

@@ -1,11 +1,11 @@
-# GeoLocation.Data
+# csc
 
 A lightweight .NET library providing a complete, offline dataset of countries, states/provinces, and cities — with ISO country codes, flag emojis, and international dial codes derived on the fly. No API calls, no network dependency; the dataset ships embedded (Brotli-compressed) inside the package.
 
 ## Install
 
 ```bash
-dotnet add package GeoLocation.Data
+dotnet add package csc
 ```
 
 Targets `net10.0`.
@@ -13,9 +13,9 @@ Targets `net10.0`.
 ## Quick start
 
 ```csharp
-using GeoLocation.Data;
+using csc;
 
-var geo = new GeoLocationService();
+var geo = new CSCService();
 
 // All countries, sorted alphabetically by name
 IEnumerable<Country> countries = geo.GetAll();
@@ -37,7 +37,7 @@ IEnumerable<Country> plusOne = geo.GetByPhoneCode("+1"); // US, CA, ...
 
 ## API
 
-### `GeoLocationService`
+### `CSCService`
 
 | Method | Description |
 | --- | --- |

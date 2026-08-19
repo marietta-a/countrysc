@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace GeoLocation.Data;
+namespace csc;
 
 /// <summary>
 /// Static lookup containing the correct phone codes and number formats matching Daniel-Ioannou's country list.

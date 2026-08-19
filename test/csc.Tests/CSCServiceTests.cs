@@ -1,11 +1,11 @@
 using System.Linq;
-using GeoLocation.Data;
+using csc;
 
-namespace GeoLocation.Data.Tests;
+namespace csc.Tests;
 
-public class GeoLocationServiceTests
+public class CSCServiceTests
 {
-    private readonly GeoLocationService _service = new();
+    private readonly CSCService _service = new();
 
     [Fact]
     public void GetAll_ReturnsNonEmptyList_SortedAlphabeticallyByName()
