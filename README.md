@@ -4,6 +4,9 @@
 
 # csc
 
+[![NuGet version](https://img.shields.io/nuget/v/csc.svg)](https://www.nuget.org/packages/csc)
+[![NuGet downloads](https://img.shields.io/nuget/dt/csc.svg)](https://www.nuget.org/packages/csc)
+
 A lightweight .NET library providing a complete, offline dataset of countries, states/provinces, and cities — with ISO country codes, flag emojis, and international dial codes derived on the fly. No API calls, no network dependency; the dataset ships embedded (Brotli-compressed) inside the package.
 
 If csc is useful to you, consider giving the repo a ⭐ — it helps other .NET developers find the project.
