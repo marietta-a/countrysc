@@ -64,8 +64,9 @@ IEnumerable<string> languages = geo.GetLanguages("CH"); // French, German, Itali
 | `GetCities(string? countryCode, int? stateId)` | Cities for a given country + state id, sorted alphabetically. Empty if either argument is missing or unknown. |
 | `GetTimeZones(string? countryCode)` | IANA time zones observed in a country (e.g. `"America/New_York"`). Empty if the country code is missing or unknown. |
 | `GetLanguages(string? countryCode)` | Official language(s) of a country (e.g. `"English"`). Empty if the country code is missing or unknown. |
+| `GetFlagSvg(string? countryCode)` | Raw SVG markup of a country's square flag icon. Empty string if the country code is missing, unknown, or has no embedded icon. |
 
-### Models
+### Properties
 
 - **`Country`** — `Id`, `Name`, `States`, plus computed properties:
   - `CountryCode` — ISO alpha-2 code, derived from the flag emoji's Unicode codepoints
@@ -75,6 +76,7 @@ IEnumerable<string> languages = geo.GetLanguages("CH"); // French, German, Itali
   - `DisplayName` — `"United States (US)"`
   - `TimeZones` — the country's `TimeZoneEntry` list
   - `OfficialLanguages` — the country's official language name(s)
+  - `FlagSvg` — raw SVG markup of the country's square flag icon, empty string if unavailable
 - **`State`** — `Id`, `Name`, `Cities`
 - **`City`** — `Id`, `Name`
 - **`TimeZoneEntry`** — `ZoneName` (IANA identifier), `CountryCode`, plus computed properties:
