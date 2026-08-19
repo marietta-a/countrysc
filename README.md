@@ -94,6 +94,21 @@ Official language data covers 201 countries/territories. Coverage follows the so
 - [`test/csc.Tests`](test/csc.Tests) — xUnit test suite
 - [`test/csc.TestApp`](test/csc.TestApp) — Blazor Server sample app with cascading Country → State → City dropdowns
 
+## Try the sample app
+
+[`test/csc.TestApp`](test/csc.TestApp) is a small Blazor Server app that exercises the library end to end. Run it from the repo root:
+
+```bash
+dotnet run --project test/csc.TestApp/csc.TestApp.csproj
+```
+
+Then open the URL printed in the console (`https://localhost:7280` by default) in your browser. Pick a country from the dropdown to see:
+
+- cascading **State** and **City** dropdowns for that country
+- its **time zones**, with live UTC offsets
+- its **official language(s)**
+- its **flag icon**, rendered from the embedded SVG
+
 ## Development
 
 ```bash

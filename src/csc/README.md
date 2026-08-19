@@ -84,15 +84,3 @@ string flagSvg = geo.GetFlagSvg("US");
 Time zone data covers 246 countries/territories (418 zones total). Only IANA zone names are embedded; UTC offsets are resolved live via `TimeZoneInfo` so they stay correct across DST transitions instead of going stale.
 
 Official language data covers 201 countries/territories. Coverage follows the source article and skips a handful of micro-territories and a few disputed/partially-recognized territories not present in the country dataset.
-
-## Data sources
-
-- Countries/states/cities, flag emojis, and phone codes — embedded dataset in `countries.json.br`
-- Time zones — [TimeZoneDB time zone list](https://timezonedb.com/time-zones)
-- Official languages — [Wikipedia: List of official languages by country and territory](https://en.wikipedia.org/wiki/List_of_official_languages_by_country_and_territory)
-- Flag icons — [flag-icons](https://github.com/lipis/flag-icons) (MIT licensed), embedded as SVG resources
-
-## Disclaimer
-
-This library bundles country, state/province, city, flag, time zone, and language data for general informational and development use. Inclusion of any country, territory, or region - and the names, borders, or flags used to represent it - does not imply any opinion on its political status, sovereignty, or legal recognition. Data is aggregated from the third-party sources listed above, may contain inaccuracies, and can become outdated.
-
