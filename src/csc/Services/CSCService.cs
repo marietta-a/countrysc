@@ -112,6 +112,17 @@ public class CSCService
     }
 
     /// <summary>
+    /// Gets the official language(s) for a given 2-letter country code.
+    /// </summary>
+    public IEnumerable<string> GetLanguages(string? countryCode)
+    {
+        if (string.IsNullOrWhiteSpace(countryCode)) return [];
+
+        var country = GetByCountryCode(countryCode);
+        return country?.OfficialLanguages ?? [];
+    }
+
+    /// <summary>
     /// Gets states for a given 2-letter country code.
     /// </summary>
     public IEnumerable<State> GetStates(string? countryCode)

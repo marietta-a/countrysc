@@ -153,4 +153,34 @@ public class CSCServiceTests
     {
         Assert.Empty(_service.GetTimeZones(code));
     }
+
+    [Theory]
+    [InlineData("IN", "English")]
+    [InlineData("in", "English")]
+    [InlineData("GR", "Greek")]
+    public void GetLanguages_ReturnsLanguagesForValidCountry_CaseInsensitive(string code, string expectedLanguage)
+    {
+        var languages = _service.GetLanguages(code).ToList();
+
+        Assert.NotEmpty(languages);
+        Assert.Contains(expectedLanguage, languages);
+    }
+
+    [Fact]
+    public void GetLanguages_ReturnsMultipleLanguages_ForMultilingualCountry()
+    {
+        var languages = _service.GetLanguages("CH").ToList();
+
+        Assert.True(languages.Count > 1);
+    }
+
+    [Theory]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData("   ")]
+    [InlineData("ZZ")]
+    public void GetLanguages_ReturnsEmpty_ForInvalidOrMissingCode(string? code)
+    {
+        Assert.Empty(_service.GetLanguages(code));
+    }
 }

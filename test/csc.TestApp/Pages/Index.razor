@@ -53,6 +53,39 @@
     <li><strong>City:</strong> @(_selectedCity?.Name ?? "(none)")</li>
 </ul>
 
+@if (_selectedCountry != null)
+{
+    <h4>Time Zones</h4>
+    @if (_selectedCountry.TimeZones.Count == 0)
+    {
+        <p><em>No time zone data for this country.</em></p>
+    }
+    else
+    {
+        <ul>
+            @foreach (var zone in _selectedCountry.TimeZones)
+            {
+                <li>@zone.ZoneName (@FormatOffset(zone.CurrentUtcOffset))</li>
+            }
+        </ul>
+    }
+
+    <h4>Official Languages</h4>
+    @if (_selectedCountry.OfficialLanguages.Count == 0)
+    {
+        <p><em>No language data for this country.</em></p>
+    }
+    else
+    {
+        <ul>
+            @foreach (var language in _selectedCountry.OfficialLanguages)
+            {
+                <li>@language</li>
+            }
+        </ul>
+    }
+}
+
 @code {
     private List<Country> _countries = [];
     private List<State> _states = [];
@@ -108,5 +141,12 @@
         _selectedCity = _selectedCityId == null
             ? null
             : _cities.FirstOrDefault(c => c.Id == _selectedCityId);
+    }
+
+    private static string FormatOffset(TimeSpan? offset)
+    {
+        if (offset == null) return "unknown";
+        var sign = offset.Value < TimeSpan.Zero ? "-" : "+";
+        return $"UTC{sign}{offset.Value.Duration():hh\\:mm}";
     }
 }

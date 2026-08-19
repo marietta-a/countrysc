@@ -37,6 +37,9 @@ IEnumerable<Country> plusOne = geo.GetByPhoneCode("+1"); // US, CA, ...
 // IANA time zones for a country
 IEnumerable<TimeZoneEntry> zones = geo.GetTimeZones("US"); // America/New_York, America/Chicago, ...
 TimeSpan? offset = zones.First().CurrentUtcOffset;
+
+// Official language(s) for a country
+IEnumerable<string> languages = geo.GetLanguages("CH"); // French, German, Italian, Romansh
 ```
 
 ## API
@@ -51,6 +54,7 @@ TimeSpan? offset = zones.First().CurrentUtcOffset;
 | `GetStates(string? countryCode)` | States/provinces for a country, sorted alphabetically. Empty if the country code is missing or unknown. |
 | `GetCities(string? countryCode, int? stateId)` | Cities for a given country + state id, sorted alphabetically. Empty if either argument is missing or unknown. |
 | `GetTimeZones(string? countryCode)` | IANA time zones observed in a country (e.g. `"America/New_York"`). Empty if the country code is missing or unknown. |
+| `GetLanguages(string? countryCode)` | Official language(s) of a country (e.g. `"English"`). Empty if the country code is missing or unknown. |
 
 ### Models
 
@@ -61,6 +65,7 @@ TimeSpan? offset = zones.First().CurrentUtcOffset;
   - `Example` — a sample local phone number for the country
   - `DisplayName` — `"United States (US)"`
   - `TimeZones` — the country's `TimeZoneEntry` list
+  - `OfficialLanguages` — the country's official language name(s)
 - **`State`** — `Id`, `Name`, `Cities`
 - **`City`** — `Id`, `Name`
 - **`TimeZoneEntry`** — `ZoneName` (IANA identifier), `CountryCode`, plus computed properties:
@@ -69,10 +74,13 @@ TimeSpan? offset = zones.First().CurrentUtcOffset;
 
 Time zone data covers 246 countries/territories (418 zones total). Only IANA zone names are embedded; UTC offsets are resolved live via `TimeZoneInfo` so they stay correct across DST transitions instead of going stale.
 
+Official language data covers 201 countries/territories. Coverage follows the source article and skips a handful of micro-territories and a few disputed/partially-recognized territories not present in the country dataset.
+
 ## Data sources
 
 - Countries/states/cities, flag emojis, and phone codes — embedded dataset in `countries.json.br`
 - Time zones — [TimeZoneDB time zone list](https://timezonedb.com/time-zones)
+- Official languages — [Wikipedia: List of official languages by country and territory](https://en.wikipedia.org/wiki/List_of_official_languages_by_country_and_territory)
 
 ## Repository layout
 

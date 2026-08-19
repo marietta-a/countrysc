@@ -46,4 +46,20 @@ public class CountryTests
 
         Assert.Empty(country.TimeZones);
     }
+
+    [Fact]
+    public void OfficialLanguages_ReturnsLanguagesForCountry()
+    {
+        var country = new Country { Name = "Greece", EmojiU = "U+1F1EC U+1F1F7" };
+
+        Assert.Contains("Greek", country.OfficialLanguages);
+    }
+
+    [Fact]
+    public void OfficialLanguages_ReturnsEmpty_WhenCountryCodeCannotBeDerived()
+    {
+        var country = new Country { Name = "Unknown" };
+
+        Assert.Empty(country.OfficialLanguages);
+    }
 }
