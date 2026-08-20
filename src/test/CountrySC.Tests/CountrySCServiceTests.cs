@@ -229,4 +229,55 @@ public class CountrySCServiceTests
     {
         Assert.Null(_service.GetCurrency(code));
     }
+
+    [Theory]
+    [InlineData("US", "Washington, D.C.")]
+    [InlineData("us", "Washington, D.C.")]
+    [InlineData("GR", "Athens")]
+    public void GetCapitalCity_ReturnsCorrectCapital_ForValidCountry(string code, string expectedCapital)
+    {
+        var capital = _service.GetCapitalCity(code);
+        Assert.Equal(expectedCapital, capital);
+    }
+
+    [Theory]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData("   ")]
+    [InlineData("ZZ")]
+    public void GetCapitalCity_ReturnsEmpty_ForInvalidOrMissingCode(string? code)
+    {
+        Assert.Equal(string.Empty, _service.GetCapitalCity(code));
+    }
+
+    [Theory]
+    [InlineData("US", Continent.Americas)]
+    [InlineData("us", Continent.Americas)]
+    [InlineData("GR", Continent.Europe)]
+    [InlineData("JP", Continent.Asia)]
+    [InlineData("ZA", Continent.Africa)]
+    [InlineData("AU", Continent.Oceania)]
+    [InlineData("AQ", Continent.Antarctica)]
+    public void GetContinent_ReturnsCorrectContinent_ForValidCountry(string code, Continent expectedContinent)
+    {
+        var continent = _service.GetContinent(code);
+        Assert.Equal(expectedContinent, continent);
+    }
+
+    [Theory]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData("   ")]
+    [InlineData("ZZ")]
+    public void GetContinent_ReturnsNull_ForInvalidOrMissingCode(string? code)
+    {
+        Assert.Null(_service.GetContinent(code));
+    }
+
+    [Fact]
+    public void DumpCountryMapping()
+    {
+        var lines = _service.GetAll().Select(c => $"{c.CountryCode}|{c.Name}");
+        System.IO.File.WriteAllLines(@"../../../../countries_dump.txt", lines);
+    }
 }

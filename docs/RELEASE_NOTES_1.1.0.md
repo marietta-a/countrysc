@@ -17,6 +17,6 @@ Release of `CountrySC` 1.1.0, introducing comprehensive country currency details
 - **New `CountrySCService` Method**:
   - `GetCurrency(string? countryCode)` — retrieves currency details (`CountryCurrency`) for a given 2-letter country code. Returns `null` if the code is missing or unknown.
 - **Cascading Dropdowns Sample App Integration**:
-  - Updated the Blazor Server sample test application (`test/CountrySC.TestApp`) to display the currency details of the selected country dynamically under a new dedicated Currency section.
+  - Updated the Blazor Server sample test application (`src/test/CountrySC.TestApp`) to display the currency details of the selected country dynamically under a new dedicated Currency section.
 - **Comprehensive Unit Testing**:
   - Expanded unit test suite (`CountrySCServiceTests` and `CountryTests`) to thoroughly cover currency lookup, case-insensitivity, and fallback scenarios.

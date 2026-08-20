@@ -137,6 +137,30 @@ public class CountrySCService
     }
 
     /// <summary>
+    /// Gets the capital city for a given 2-letter country code.
+    /// Returns empty string if the country code is missing or unknown.
+    /// </summary>
+    public string GetCapitalCity(string? countryCode)
+    {
+        if (string.IsNullOrWhiteSpace(countryCode)) return string.Empty;
+
+        var country = GetByCountryCode(countryCode);
+        return country?.CapitalCity ?? string.Empty;
+    }
+
+    /// <summary>
+    /// Gets the continent for a given 2-letter country code.
+    /// Returns null if the country code is missing or unknown.
+    /// </summary>
+    public Continent? GetContinent(string? countryCode)
+    {
+        if (string.IsNullOrWhiteSpace(countryCode)) return null;
+
+        var country = GetByCountryCode(countryCode);
+        return country?.Continent;
+    }
+
+    /// <summary>
     /// Gets the raw SVG markup of the flag icon for a given 2-letter country code.
     /// Empty string if the country code is missing, unknown, or has no embedded flag icon.
     /// </summary>

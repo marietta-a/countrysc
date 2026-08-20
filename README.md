@@ -53,10 +53,18 @@ IEnumerable<string> languages = geo.GetLanguages("CH"); // French, German, Itali
 // Currency details for a country (e.g. United States Dollar, USD, $)
 CountryCurrency? currency = geo.GetCurrency("US");
 
+// Capital city of a country
+string capital = geo.GetCapitalCity("US"); // Washington, D.C.
+
+// Continent of a country
+Continent? continent = geo.GetContinent("US"); // Continent.Americas
+
 // Or via country properties:
 string currencyName = us.Currency; // "United States Dollar"
 string currencyIso = us.Iso4217;  // "USD"
 string currencySymbol = us.Symbol; // "$"
+string capitalCity = us.CapitalCity; // "Washington, D.C."
+Continent continentProperty = us.Continent; // Continent.Americas
 ```
 
 ## API
@@ -74,6 +82,8 @@ string currencySymbol = us.Symbol; // "$"
 | `GetLanguages(string? countryCode)` | Official language(s) of a country (e.g. `"English"`). Empty if the country code is missing or unknown. |
 | `GetFlagSvg(string? countryCode)` | Raw SVG markup of a country's square flag icon. Empty string if the country code is missing, unknown, or has no embedded icon. |
 | `GetCurrency(string? countryCode)` | Gets the currency details for a given 2-letter country code. Returns `null` if the country code is missing or unknown. |
+| `GetCapitalCity(string? countryCode)` | Gets the capital city for a given 2-letter country code. Returns `string.Empty` if the country code is missing or unknown. |
+| `GetContinent(string? countryCode)` | Gets the continent for a given 2-letter country code. Returns `null` if the country code is missing or unknown. |
 
 ### Properties
 
@@ -89,6 +99,8 @@ string currencySymbol = us.Symbol; // "$"
   - `Currency` — name of the country's currency (e.g. `"United States Dollar"`)
   - `Iso4217` — three-letter ISO 4217 currency code (e.g. `"USD"`)
   - `Symbol` — currency symbol (e.g. `"$"` or `"€"`)
+  - `CapitalCity` — capital city of the country (e.g. `"Washington, D.C."`)
+  - `Continent` — continent where the country is located (`Africa`, `Americas`, `Antarctica`, `Asia`, `Europe`, `Oceania`)
 - **`State`** — `Id`, `Name`, `Cities`
 - **`City`** — `Id`, `Name`
 - **`CountryCurrency`** — `Currency` (name of the currency), `Iso4217` (three-letter code), `Symbol` (symbol)
@@ -102,25 +114,31 @@ Official language data covers 201 countries/territories. Coverage follows the so
 
 Currency data covers 250 countries/territories. Sourced from the Geocountries currency database (https://www.geocountries.com/country/currencies).
 
+Capital city data covers 250 countries/territories. Sourced from Worlddata (https://www.worlddata.info/capital-cities.php).
+
+Continent data covers 250 countries/territories. Sourced from Worlddata (https://www.worlddata.info/capital-cities.php).
+
 ## Data sources
 
 - Countries/states/cities, flag emojis, and phone codes — embedded dataset in `countries.json.br`
 - Time zones — [TimeZoneDB time zone list](https://timezonedb.com/time-zones)
 - Official languages — [Wikipedia: List of official languages by country and territory](https://en.wikipedia.org/wiki/List_of_official_languages_by_country_and_territory)
 - Currency — [Geocountries currency database](https://www.geocountries.com/country/currencies)
+- Capital cities — [Worlddata capital cities list](https://www.worlddata.info/capital-cities.php)
+- Continents — [Worlddata capital cities list](https://www.worlddata.info/capital-cities.php)
 
 ## Repository layout
 
 - [`src/CountrySC`](src/CountrySC) — the library
-- [`test/CountrySC.Tests`](test/CountrySC.Tests) — xUnit test suite
-- [`test/CountrySC.TestApp`](test/CountrySC.TestApp) — Blazor Server sample app with cascading Country → State → City dropdowns
+- [`src/test/CountrySC.Tests`](src/test/CountrySC.Tests) — xUnit test suite
+- [`src/test/CountrySC.TestApp`](src/test/CountrySC.TestApp) — Blazor Server sample app with cascading Country → State → City dropdowns
 
 ## Try the sample app
 
-[`test/CountrySC.TestApp`](test/CountrySC.TestApp) is a small Blazor Server app that exercises the library end to end. Run it from the repo root:
+[`src/test/CountrySC.TestApp`](src/test/CountrySC.TestApp) is a small Blazor Server app that exercises the library end to end. Run it from the repo root:
 
 ```bash
-dotnet run --project test/CountrySC.TestApp/CountrySC.TestApp.csproj
+dotnet run --project src/test/CountrySC.TestApp/CountrySC.TestApp.csproj
 ```
 
 Then open the URL printed in the console (`https://localhost:7280` by default) in your browser. Pick a country from the dropdown to see:
@@ -134,7 +152,7 @@ Then open the URL printed in the console (`https://localhost:7280` by default) i
 
 ```bash
 dotnet build CountrySC.slnx
-dotnet test test/CountrySC.Tests/CountrySC.Tests.csproj
+dotnet test src/test/CountrySC.Tests/CountrySC.Tests.csproj
 ```
 
 ## Disclaimer

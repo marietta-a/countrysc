@@ -55,6 +55,23 @@
 
 @if (_selectedCountry != null)
 {
+
+    <h4>Country's Continent</h4>
+    <ul>
+        <li>@_selectedCountry.Continent</li>
+    </ul>
+
+    <h4>Capital City</h4>
+    @if (_selectedCountry.CapitalCity == null)
+    {
+        <p><em>No capital city found.</em></p>
+    }
+    else
+    {
+        <ul>
+                <li>@_selectedCountry.CapitalCity</li>
+        </ul>
+    }
     <h4>Flag</h4>
     @if (string.IsNullOrEmpty(_selectedCountry.FlagSvg))
     {

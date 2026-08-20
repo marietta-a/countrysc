@@ -44,7 +44,7 @@ jobs:
       run: dotnet build src/CountrySC/CountrySC.csproj --configuration Release --no-restore
 
     - name: Run Unit Tests
-      run: dotnet test test/CountrySC.Tests/CountrySC.Tests.csproj --configuration Release --verbosity normal
+      run: dotnet test src/test/CountrySC.Tests/CountrySC.Tests.csproj --configuration Release --verbosity normal
 
     - name: Pack NuGet Package
       run: dotnet pack src/CountrySC/CountrySC.csproj --configuration Release --no-build --output ./nupkg

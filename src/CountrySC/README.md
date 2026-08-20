@@ -51,10 +51,18 @@ string flagSvg = geo.GetFlagSvg("US");
 // Currency details for a country (e.g. United States Dollar, USD, $)
 CountryCurrency? currency = geo.GetCurrency("US");
 
+// Capital city of a country
+string capital = geo.GetCapitalCity("US"); // Washington, D.C.
+
+// Continent of a country
+Continent? continent = geo.GetContinent("US"); // Continent.Americas
+
 // Or via country properties:
 string currencyName = us.Currency; // "United States Dollar"
 string currencyIso = us.Iso4217;  // "USD"
 string currencySymbol = us.Symbol; // "$"
+string capitalCity = us.CapitalCity; // "Washington, D.C."
+Continent continentProperty = us.Continent; // Continent.Americas
 ```
 
 ## API
@@ -72,6 +80,8 @@ string currencySymbol = us.Symbol; // "$"
 | `GetLanguages(string? countryCode)` | Official language(s) of a country (e.g. `"English"`). Empty if the country code is missing or unknown. |
 | `GetFlagSvg(string? countryCode)` | Raw SVG markup of a country's square flag icon. Empty string if the country code is missing, unknown, or has no embedded icon. |
 | `GetCurrency(string? countryCode)` | Gets the currency details for a given 2-letter country code. Returns `null` if the country code is missing or unknown. |
+| GetCapitalCity(string? countryCode) | Gets the capital city for a given 2-letter country code. Returns `string.Empty` if the country code is missing or unknown. |
+| `GetContinent(string? countryCode)` | Gets the continent for a given 2-letter country code. Returns `null` if the country code is missing or unknown. |
 
 ### Properties
 
@@ -87,6 +97,8 @@ string currencySymbol = us.Symbol; // "$"
   - `Currency` — name of the country's currency (e.g. `"United States Dollar"`)
   - `Iso4217` — three-letter ISO 4217 currency code (e.g. `"USD"`)
   - `Symbol` — currency symbol (e.g. `"$"` or `"€"`)
+  - `CapitalCity` — capital city of the country (e.g. `"Washington, D.C."`)
+  - `Continent` — continent where the country is located (`Africa`, `Americas`, `Antarctica`, `Asia`, `Europe`, `Oceania`)
 - **`State`** — `Id`, `Name`, `Cities`
 - **`City`** — `Id`, `Name`
 - **`CountryCurrency`** — `Currency` (name of the currency), `Iso4217` (three-letter code), `Symbol` (symbol)
@@ -99,3 +111,7 @@ Time zone data covers 246 countries/territories (418 zones total). Only IANA zon
 Official language data covers 201 countries/territories. Coverage follows the source article and skips a handful of micro-territories and a few disputed/partially-recognized territories not present in the country dataset.
 
 Currency data covers 250 countries/territories. Sourced from the Geocountries currency database (https://www.geocountries.com/country/currencies).
+
+Capital city data covers 250 countries/territories. Sourced from Worlddata (https://www.worlddata.info/capital-cities.php).
+
+Continent data covers 250 countries/territories. Sourced from Worlddata (https://www.worlddata.info/capital-cities.php).

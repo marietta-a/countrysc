@@ -94,6 +94,18 @@ public class Country
     public string Symbol => GetCurrency(CountryCode)?.Symbol ?? string.Empty;
 
     /// <summary>
+    /// Capital city of this country (e.g., "Washington, D.C.", "Athens").
+    /// </summary>
+    [JsonIgnore]
+    public string CapitalCity => GetCapitalCity(CountryCode);
+
+    /// <summary>
+    /// Continent where this country is located.
+    /// </summary>
+    [JsonIgnore]
+    public Continent Continent => GetContinent(CountryCode);
+
+    /// <summary>
     /// Converts Regional Indicator codepoints in "emojiU" string (e.g., "U+1F1E6 U+1F1EB") into a 2-letter ISO country code.
     /// </summary>
     public static string GetCountryCodeFromEmojiU(string emojiU)
@@ -122,6 +134,18 @@ public class Country
     {
         if (string.IsNullOrEmpty(countryCode)) return null;
         return CountryCurrencies.Currencies.TryGetValue(countryCode.ToUpperInvariant(), out var currency) ? currency : null;
+    }
+
+    private static string GetCapitalCity(string countryCode)
+    {
+        if (string.IsNullOrEmpty(countryCode)) return string.Empty;
+        return CountryCapitals.Capitals.TryGetValue(countryCode.ToUpperInvariant(), out var capital) ? capital : string.Empty;
+    }
+
+    private static Continent GetContinent(string countryCode)
+    {
+        if (string.IsNullOrEmpty(countryCode)) return default;
+        return CountryContinents.Continents.TryGetValue(countryCode.ToUpperInvariant(), out var continent) ? continent : default;
     }
 
     private static string GetPhoneCode(string countryCode)

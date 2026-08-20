@@ -98,4 +98,32 @@ public class CountryTests
         Assert.Empty(country.Iso4217);
         Assert.Empty(country.Symbol);
     }
+
+    [Fact]
+    public void CapitalCity_ReturnsCorrectValue_ForKnownCountry()
+    {
+        var country = new Country { Name = "United States", EmojiU = "U+1F1FA U+1F1F8" };
+        Assert.Equal("Washington, D.C.", country.CapitalCity);
+    }
+
+    [Fact]
+    public void CapitalCity_ReturnsEmpty_WhenCountryCodeCannotBeDerived()
+    {
+        var country = new Country { Name = "Unknown" };
+        Assert.Equal(string.Empty, country.CapitalCity);
+    }
+
+    [Fact]
+    public void Continent_ReturnsCorrectValue_ForKnownCountry()
+    {
+        var country = new Country { Name = "United States", EmojiU = "U+1F1FA U+1F1F8" };
+        Assert.Equal(Continent.Americas, country.Continent);
+    }
+
+    [Fact]
+    public void Continent_ReturnsDefault_WhenCountryCodeCannotBeDerived()
+    {
+        var country = new Country { Name = "Unknown" };
+        Assert.Equal(default(Continent), country.Continent);
+    }
 }
